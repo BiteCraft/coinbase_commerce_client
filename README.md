@@ -101,7 +101,7 @@ bundle install
 Or install it yourself as:
 
 ```sh
-gem install coinbase_commerce
+gem install coinbase_commerce_client
 ```
 
 ## Usage
