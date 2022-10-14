@@ -106,7 +106,7 @@ gem install coinbase_commerce_client
 
 ## Usage
 ```ruby
-require 'coinbase_commerce'
+require 'coinbase_commerce_client'
 client = CoinbaseCommerceClient::Client.new(api_key: 'your_api_key')
 ```
 ## Checkouts
@@ -259,7 +259,7 @@ end
 Any and all contributions are welcome! The process is simple: fork this repo, make your changes, add tests, run the test suite, and submit a pull request. Tests are run via rspec. To run the tests, clone the repository and then:
 
     # Install the requirements
-    gem install coinbase_commerce
+    gem install coinbase_commerce_client
     rspec spec
     
     # or via Bundle
