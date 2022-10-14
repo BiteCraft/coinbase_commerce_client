@@ -1,0 +1,11 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'libs/**/*'
+Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/EndOfLine:
+  EnforcedStyle: lf
