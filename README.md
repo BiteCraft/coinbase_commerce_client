@@ -234,7 +234,7 @@ post '/webhooks' do
   request_payload = request.body.read
   sig_header = request.env['HTTP_X_CC_WEBHOOK_SIGNATURE']
   begin
-    event = CoinbaseCommerce::Webhook.construct_event(request_payload, sig_header, WEBHOOK_SECRET)
+    event = CoinbaseCommerceClient::Webhook.construct_event(request_payload, sig_header, WEBHOOK_SECRET)
     # event handle
     puts "Received event id=#{event.id}, type=#{event.type}"
     status 200
@@ -243,11 +243,11 @@ post '/webhooks' do
     puts "json parse error"
     status 400
     return
-  rescue CoinbaseCommerce::Errors::SignatureVerificationError => e
+  rescue CoinbaseCommerceClient::Errors::SignatureVerificationError => e
     puts "signature verification error"
     status 400
     return
-  rescue CoinbaseCommerce::Errors::WebhookInvalidPayload => e
+  rescue CoinbaseCommerceClient::Errors::WebhookInvalidPayload => e
     puts "missing request or headers data"
     status 400
     return
