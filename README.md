@@ -4,7 +4,7 @@
 </p>
 
 # Coinbase Commerce Client
-> <sub>This gem is completely inspired by official Coinbase gem [coinbase-commerce-ruby](coinbase-commerce-ruby), unfortunately the oficial gem actually is deprecated, and my motivation is to continue support for this gem</sub>
+> <sub>This gem is completely inspired by official Coinbase gem [coinbase-commerce-ruby](https://github.com/coinbase/coinbase-commerce-ruby), unfortunately the oficial gem actually is deprecated, and my motivation is to continue support for this gem</sub>
 
 Coinbase Commerce Client Ruby Gem
 
@@ -197,6 +197,12 @@ charge = client.charge.create(:name=>'The Sovereign Individual',
 ### List
 ```ruby
 charges_list = client.charge.list
+```
+### Cancel
+```ruby
+charge = client.charge.retrieve <charge_id>
+        
+charge.cancel
 ```
 ### Paging list iterations
 ```ruby
