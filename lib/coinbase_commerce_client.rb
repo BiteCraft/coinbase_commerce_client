@@ -25,6 +25,7 @@ require "coinbase_commerce_client/api_resources/base/api_resource"
 # api base operations
 require "coinbase_commerce_client/api_resources/base/create"
 require "coinbase_commerce_client/api_resources/base/update"
+require "coinbase_commerce_client/api_resources/base/cancel"
 require "coinbase_commerce_client/api_resources/base/save"
 require "coinbase_commerce_client/api_resources/base/list"
 require "coinbase_commerce_client/api_resources/base/delete"
