@@ -33,4 +33,17 @@ RSpec.describe CoinbaseCommerceClient::APIResources::Charge do
 
     charge.cancel
   end
+
+  it "charge should be resolved successfully " do
+    stub_request(:post, "#{@api_base}#{CoinbaseCommerceClient::APIResources::Charge::RESOURCE_PATH}")
+      .with(body: {:id => "id_value", :code => "code_value"})
+      .to_return(body: {data: {id: "id_value", code: "code_value", timeline: {status: "UNRESOLVED"}}}.to_json)
+    charge = @client.charge.create(id: "id_value", code: "code_value")
+
+    stub_request(:post, "#{@api_base}#{CoinbaseCommerceClient::APIResources::Charge::RESOURCE_PATH}/id_value/resolve")
+      .with(body: {})
+      .to_return(body: {data: {id: "id_value", code: "code_value", timeline: {status: "RESOLVED"}}}.to_json)
+
+    charge.resolve
+  end
 end

@@ -5,6 +5,7 @@ module CoinbaseCommerceClient
       extend Base::Create
 
       include Base::Cancel
+      include Base::Resolve
 
       OBJECT_NAME = 'charge'.freeze
       RESOURCE_PATH = 'charges'.freeze
