@@ -1,32 +1,34 @@
-[![Coverage](badge.svg)](https://github.com/viniciusborgeis/coinbase_commerce_client)
-<p>
-  <img width="100%" src="https://raw.githubusercontent.com/viniciusborgeis/coinbase_commerce_client/main/assets/banner.png" alt="Solid Vite Templates">
+<h1 align="center">
+  <br>
+  <img width="100%" src="https://raw.githubusercontent.com/viniciusborgeis/coinbase_commerce_client/main/assets/banner.png" alt="Coinbase Commerce Client">
+  <br>
+  Coinbase Commerce Client
+  <br>
+</h1>
+
+<h4 align="center">A client to handle cryptocurrency payments using <a href="https://commerce.coinbase.com/" target="_blank">Coinbase Commerce</a> platform</h4>
+
+<p align="center">
+	<img src="https://badge.fury.io/rb/coinbase_commerce_client.svg" alt="Coverage">
+	<img src="https://raw.githubusercontent.com/viniciusborgeis/coinbase_commerce_client/main/badge.svg" alt="Coverage">
+    <img src="https://ruby-gem-downloads-badge.herokuapp.com/coinbase_commerce_client?type=total"  alt="Total Downloads">
 </p>
 
-# Coinbase Commerce Client
-> <sub>This gem is completely inspired by official Coinbase gem [coinbase-commerce-ruby](https://github.com/coinbase/coinbase-commerce-ruby), unfortunately the oficial gem actually is deprecated, and my motivation is to continue support for this gem</sub>
-
-Coinbase Commerce Client Ruby Gem
-
-# Table of contents
-
-<!--ts-->
-* [Ruby Versions](#ruby-version)
-* [Third Party Libraries and Dependencies](#third-party-libraries-and-dependencies)
-* [Documentation](#documentation)
-* [Installation](#installation)
-* [Usage](#usage)
-    * [Checkouts](#checkouts)
-    * [Charges](#charges)
-    * [Events](#events)
-* [Validating webhook signatures](#validating-webhook-signatures)
-* [Testing and Contributing](#testing-and-contributing)
-<!--te-->
+<p align="center">
+  <a href="#ruby-version">Ruby Versions</a> •
+  <a href="#dependencies">Dependencies</a> •
+  <a href="#documentation">Docs</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#validating-webhook-signatures">Validating Webhook</a> •
+  <a href="#testing-and-contributing">Contributing</a>
+</p>
+<sub>This gem is completely inspired by official Coinbase gem <a href="https://github.com/coinbase/coinbase-commerce-ruby">coinbase-commerce-ruby</a>, unfortunately the oficial gem actually is deprecated, and my motivation is to continue support for this gem</sub>
 
 ## Ruby Version
 Ruby [2.3 -> 3.1.2] are supported and tested.
 
-## Third Party Libraries and Dependencies
+## Dependencies
 
 The following libraries will be installed when you install the client library:
 * [faraday](https://github.com/lostisland/faraday)
@@ -48,21 +50,32 @@ client = CoinbaseCommerceClient::Client.new(api_key: API_KEY)
 ``Client`` contains links to every Ruby Class representations of the API resources
 ``Checkout, Charge, Invoices, Event``
 
-You can call ``list, auto_paging, create, retrieve, modify`` methods from API resource classes
+You can call ``list, auto_paging, create, resolve, cancel, retrieve, modify`` methods from API resource classes
 
 ```ruby
-client.charge.create
-client.checkout.auto_paging 
-client.event.list
-client.charge.retrieve
-client.checkout.modify
-```
-as well as ``save, delete, refresh`` methods from API resource class instances.
-```ruby
+#charges
+client.charge.list
+client.charge.auto_paging
+client.charge.create <payload>
+charge = client.charge.retrieve <id>
+charge.resolve
+charge.cancel
+
+#checkout
+client.checkout.list
+client.checkout.auto_paging
+client.checkout.create <payload>
 checkout = client.checkout.retrieve <id>
 checkout.refresh
 checkout.save
+checkout.modify <payload>
 checkout.delete
+
+#events
+client.event.list
+client.event.auto_paging
+event = client.event.retrieve <id>
+
 ```
 
 Each API method returns an ``APIObject`` representing the JSON response from the API, all of the models support hash and JSON representation.\
@@ -105,17 +118,25 @@ gem install coinbase_commerce_client
 ```
 
 ## Usage
+* [Checkouts](#checkouts)
+* [Charges](#charges)
+* [Events](#events)
+
+
 ```ruby
 require 'coinbase_commerce_client'
 client = CoinbaseCommerceClient::Client.new(api_key: 'your_api_key')
 ```
-## Checkouts
+
+### Checkouts
 [Checkouts API docs](https://commerce.coinbase.com/docs/api/#checkouts)
-### Retrieve
+
+#### Retrieve
 ```ruby
 checkout = client.checkout.retrieve <checkout_id>
 ```
-### Create
+
+#### Create
 ```ruby
 checkout_info = {
     "name": "The Sovereign Individual",
@@ -139,7 +160,7 @@ checkout = client.checkout.create(:name=>'The Sovereign Individual',
                                   :requested_info=>["name", "email"])                            
 ```
 
-### Update
+#### Update
 ```ruby
 checkout = client.checkout.retrieve <checkout_id>
 checkout.name = 'new name'
@@ -151,28 +172,32 @@ client.checkout.modify(<checkout_id>, "local_price": {
 })
 ```
 
-### Delete
+#### Delete
 ```ruby
 checkout.delete
 ```
-### List
+
+#### List
 ```ruby
 checkouts = client.checkout.list
 ```
-### Paging list iterations
+
+#### Paging list iterations
 ```ruby
 client.checkout.auto_paging  do |ch|
   puts ch.id
 end
 ```
 
-## Charges
-[Charges API docs](https://commerce.coinbase.com/docs/api/#charges)
-### Retrieve
+### Charges
+[Charges API docs](https://docs.cloud.coinbase.com/commerce/reference/getcharges)
+
+#### Retrieve
 ```ruby
 charge = client.charge.retrieve <charge_id>
 ```
-### Create
+
+#### Create
 ```ruby
 charge_info = {
     "name": "The Sovereign Individual",
@@ -194,42 +219,45 @@ charge = client.charge.create(:name=>'The Sovereign Individual',
                                   "currency": "USD"
                               })
 ```
-### List
+
+#### List
 ```ruby
 charges_list = client.charge.list
 ```
-### Cancel
-```ruby
-charge = client.charge.retrieve <charge_id>
-        
-charge.cancel
-```
 
-### Resolve
-```ruby
-charge = client.charge.retrieve <charge_id>
-        
-charge.resolve
-```
-
-### Paging list iterations
+#### Paging list iterations
 ```ruby
 client.charge.auto_paging do |charge|
   puts charge.id
 end
 ```
 
+#### Resolve
+```ruby
+charge = client.charge.retrieve <charge_id>
+charge.resolve
+```
+
+#### Cancel
+```ruby
+charge = client.charge.retrieve <charge_id>
+charge.cancel
+```
+
 ## Events
-[Events API Docs](https://commerce.coinbase.com/docs/api/#events)
-### Retrieve
+[Events API Docs](https://docs.cloud.coinbase.com/commerce/reference/getevents)
+
+#### Retrieve
 ```ruby
 event = client.event.retrieve <event_id>
 ```
-### List
+
+#### List
 ```ruby
 events = client.event.list
 ```
-### Paging list iterations
+
+#### Paging list iterations
 ```ruby
 client.event.auto_paging do |event|
   puts event.id
@@ -252,7 +280,7 @@ post '/webhooks' do
     # event handle
     puts "Received event id=#{event.id}, type=#{event.type}"
     status 200
-  # errors handle
+    # errors handle
   rescue JSON::ParserError => e
     puts "json parse error"
     status 400
