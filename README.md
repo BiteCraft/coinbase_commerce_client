@@ -204,6 +204,14 @@ charge = client.charge.retrieve <charge_id>
         
 charge.cancel
 ```
+
+### Resolve
+```ruby
+charge = client.charge.retrieve <charge_id>
+        
+charge.resolve
+```
+
 ### Paging list iterations
 ```ruby
 client.charge.auto_paging do |charge|
