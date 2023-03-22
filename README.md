@@ -11,7 +11,7 @@
 <p align="center">
 	<img src="https://badge.fury.io/rb/coinbase_commerce_client.svg" alt="Coverage">
 	<img src="https://raw.githubusercontent.com/viniciusborgeis/coinbase_commerce_client/main/badge.svg" alt="Coverage">
-    <img src="https://ruby-gem-downloads-badge.herokuapp.com/coinbase_commerce_client?type=total"  alt="Total Downloads">
+    <img src="https://img.shields.io/gem/dt/coinbase_commerce_client.svg?type=total"  alt="Total Downloads">
 </p>
 
 <p align="center">
