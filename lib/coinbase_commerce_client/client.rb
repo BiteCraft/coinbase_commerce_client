@@ -2,10 +2,28 @@ module CoinbaseCommerceClient
   BASE_API_URL = 'https://api.commerce.coinbase.com/'.freeze
   API_VERSION = '2018-03-22'.freeze
 
+  class Configuration
+    attr_accessor :api_key
+
+    def initialize
+      @api_key = nil
+    end
+  end
+
+  @configuration = Configuration.new
+
+  def self.configure
+    yield(@configuration)
+  end
+
+  def self.config
+    @configuration
+  end
+
   class Client
     def initialize(options = {})
       check_api_key!(options[:api_key])
-      @api_key = options[:api_key]
+      @api_key = options[:api_key] || CoinbaseCommerceClient.config.api_key
       @api_uri = URI.parse(options[:api_url] || BASE_API_URL)
       @api_ver = options[:api_ver] || API_VERSION
 
@@ -46,7 +64,7 @@ module CoinbaseCommerceClient
     end
 
     def check_api_key!(api_key)
-      raise AuthenticationError, 'No API key provided' unless api_key
+      raise CoinbaseCommerceClient::Errors::AuthenticationError, 'No API key provided' unless (api_key || CoinbaseCommerceClient.config.api_key)
     end
 
     def request(method, path, params = {})
