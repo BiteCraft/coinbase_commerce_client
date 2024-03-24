@@ -26,7 +26,7 @@
 <sub>This gem is completely inspired by official Coinbase gem <a href="https://github.com/coinbase/coinbase-commerce-ruby">coinbase-commerce-ruby</a>, unfortunately the oficial gem actually is deprecated, and my motivation is to continue support for this gem</sub>
 
 ## Ruby Version
-Ruby [2.3 -> 3.1.2] are supported and tested.
+Ruby [2.3 -> 3.2.2] are supported and tested.
 
 ## Dependencies
 
@@ -39,6 +39,19 @@ For more details visit [Coinbase API docs](https://commerce.coinbase.com/docs/ap
 
 To start using library, you'll need to [create a Coinbase Commmerce account](https://commerce.coinbase.com/signup).
 Once you've created your Coinbase Commerce account, create an ``API_KEY`` in Settings.
+
+### On Ruby on Rails
+To use this gem in Ruby on Rails, first pass your Coinbase API_KEY to an environment variable or credentials. After doing this, create a new initializer called `coinbase_commerce_client.rb` and insert the following code:
+
+```ruby
+CoinbaseCommerceClient.configure do |config|
+  config.api_key = ENV['COINBASE_API_KEY']
+  # or
+  config.api_key = Rails.application.credentials.coinbase[:coinbase_api_key]
+end
+```
+
+### Pure ruby example
 
 Next create a ``Client`` object for interacting with the API:
 ```ruby
