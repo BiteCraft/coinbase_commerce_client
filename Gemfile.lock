@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    coinbase_commerce_client (0.2.0)
+    coinbase_commerce_client (0.4.2)
       faraday (~> 2.6)
       multipart-post (~> 2.0)
 
