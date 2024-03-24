@@ -10,15 +10,15 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Coinbase Commerce integration client for crypto payments"
   spec.description = "Coinbase Commerce integration client for crypto payments"
-  spec.homepage = "https://github.com/viniciusborgeis/coinbase_commerce_client"
+  spec.homepage = "https://github.com/BiteCraft/coinbase_commerce_client"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
   # spec.metadata["allowed_push_host"] = "http://mygemserver.com"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/viniciusborgeis/coinbase_commerce_client"
-  spec.metadata["changelog_uri"] = "https://github.com/viniciusborgeis/coinbase_commerce_client"
+  spec.metadata["source_code_uri"] = "https://github.com/BiteCraft/coinbase_commerce_client"
+  spec.metadata["changelog_uri"] = "https://github.com/BiteCraft/coinbase_commerce_client"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
